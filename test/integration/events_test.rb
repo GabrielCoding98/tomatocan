@@ -298,6 +298,25 @@ class EventsTest < ActionDispatch::IntegrationTest
   end
   test "link to reward on live show page redirects" do
   end
+  test "test if password of shotened length is not allowed as a password for signup" do
+      visit ('/')
+      click_on('Sign Up', match: :first)
+      fill_in(id:'user_name', with: 'name')
+      fill_in(id:'user_email', with: 'e@gmail.com')
+      fill_in(id:'user_permalink', with:'username')
+      fill_in(id:'user_password', with: 'pass', :match => :prefer_exact)
+      fill_in(id:'user_password_confirmation', with:'pass')
+      click_on(class: 'form-control btn-primary')#Click Signup
+      assert_text('Password is too short')
+  end
+  test "change email updates successfully" do
+      signup()
+      click_on('Control Panel')
+      click_on('Account')
+      fill_in(id: 'user_email', with: 'f@gmail.com')
+      click_on(id: 'saveProfileButton')
+      assert_text('f@gmail.com')
+  end
 end
 
 
