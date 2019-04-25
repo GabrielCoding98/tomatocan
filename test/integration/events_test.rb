@@ -281,24 +281,25 @@ class EventsTest < ActionDispatch::IntegrationTest
     # assert_text('Facebook Timeline Post from Me')
   end
   test "sales tab should render purchased items" do
-      createReward()
-      visit('/')
-      click_on('Sign out')
-      visit('http://localhost:3000/username')
-      assert_text('Shoe')
-      click_on('Buy')
-      fill_in(id: 'purchase_email', with: 'e@email.com')
-      fill_in(id: 'card_number' , with: '4242424242424242')
-      fill_in(id: 'card_year' , value: '2020')
-      click_on('Purchase')
-      signIn()
-      click_on('Control Panel')
-      click_on('Sales')
-      assert_text('Mark as Read')
+    createReward()
+    visit('/')
+    click_on('Sign out')
+    visit('http://localhost:3000/username')
+    # assert_text('Support our work!')
+    visit('http://localhost:3000/purchases/new?merchandise_id=1018350812')
+    
+    fill_in(id: 'purchase_email', with: 'e@email.com')
+    fill_in(id: 'card_number' , with: '4242424242424242')
+    fill_in(id: 'card_year' , value: '2020')
+    click_on('Purchase')
+    signIn()
+    click_on('Control Panel')
+    click_on('Sales')
+    assert_text('Mark as Read')
   end
   test "link to reward on live show page redirects" do
   end
-  test "test if password of shotened length is not allowed as a password for signup" do
+  test "test if password of shortened length is not allowed as a password for signup" do
       visit ('/')
       click_on('Sign Up', match: :first)
       fill_in(id:'user_name', with: 'name')
@@ -314,8 +315,18 @@ class EventsTest < ActionDispatch::IntegrationTest
       click_on('Control Panel')
       click_on('Account')
       fill_in(id: 'user_email', with: 'f@gmail.com')
-      click_on(id: 'saveProfileButton')
+      within(id: 'editProfileButton') do
+      click_on(id: 'saveProfileButton')#cannot find this button since there are 3 instances of it. need to use within to solve this issue
+      end
       assert_text('f@gmail.com')
+  test "Cancel button when editing the account info send the user back to their user_profile path " do
+      #  signup()
+      #  click_on('Control Panel')
+      # click_on('Account')
+      # fill_in(id: 'user_email', with: 'f@gmail.com')
+      within(id: 'editProfileButton') do
+          click_on(id: 'saveProfileButton')#canno
+  end
   end
 end
 
