@@ -324,9 +324,10 @@ class EventsTest < ActionDispatch::IntegrationTest
       #  click_on('Control Panel')
       # click_on('Account')
       # fill_in(id: 'user_email', with: 'f@gmail.com')
+  end
       within(id: 'editProfileButton') do
           click_on(id: 'saveProfileButton')#canno
-  end
+      end
   end
 end
 

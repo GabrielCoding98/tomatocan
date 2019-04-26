@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: user1 product
   user_id: 1
   price: 1.5
   desc: MyText
@@ -48,4 +48,12 @@ six:
   itempic: MyString
   audio: Test.mp3
   buttontype: Donate  
+seven:
+  name: Donate $2.00!
+  user_id: 1
+  price: 2
+  desc: MyText
+  itempic: MyString
+  merchpdf: Test.pdf
+  buttontype: Buy
   
