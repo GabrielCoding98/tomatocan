@@ -3,7 +3,7 @@ require 'capybara-screenshot/minitest'
 class UsersTest < ActionDispatch::IntegrationTest
     include Capybara::DSL
     include Capybara::Minitest::Assertions
-    Capybara::Screenshot.autosave_on_failure = false
+    Capybara::Screenshot.autosave_on_failure = true
     setup do
     visit ('http://localhost:3000/')
     def signUpUser()
@@ -197,11 +197,13 @@ test 'Should_cancel' do
 end
 #Stripe error here
 test 'Should_buy_user' do
+    signUpUser()
+    signInUser()
     visit('http://localhost:3000/')
     click_on('Discover Talk Show Hosts')
     click_link('Phineas')
     click_on('Buy for $1.50')
-    fill_in(id:'card_number', with:'4242424242424242')
+    fill_in(id:'card_number', with:'4242424242424243')
     select("2020", from: 'card_year')
     click_on('Purchase')
     assert_text('successfully')

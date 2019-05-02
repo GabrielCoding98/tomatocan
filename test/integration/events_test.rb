@@ -1,5 +1,6 @@
 require 'test_helper'
 require 'capybara-screenshot/minitest'
+require 'selenium-webdriver'
 class EventsTest < ActionDispatch::IntegrationTest
  include Capybara::DSL
  include Capybara::Minitest::Assertions
