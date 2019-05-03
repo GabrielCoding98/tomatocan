@@ -1,14 +1,33 @@
 require 'test_helper'
 require 'capybara-screenshot/minitest'
 require 'selenium-webdriver'
+#define driver for firefox webdriver
+#Capybara::Selenium::Driver.new( :browser => :chrome, :driver_path => '74.0.3729.6')
+#@driver = Selenium::WebDriver::firefox.driver_path = 'firefdriver'
+#driver = driver.new( :browser => :chrome, :driver_path => 'chromedriver')
+
+
+#driver=Selenium::WebDriver.for :chrome
+
+
 class EventsTest < ActionDispatch::IntegrationTest
  include Capybara::DSL
  include Capybara::Minitest::Assertions
  Capybara::Screenshot.autosave_on_failure = false# disable screenshot on failure
+ @driver = Selenium::WebDriver.for :firefox
+ 
   setup do
+  
     visit ('/')#user is at the home page by default
+    Capybara.server = :webrick
+    Capybara.default_driver = :selenium_headless
   end
-
+def goto()
+    @driver.navigate.to 'http://localhost:3000'
+end
+  def signupSelenium()
+      @driver.navigate.to 'http://localhost:3000'
+  end
   def signup()
     visit ('/')
     click_on('Sign Up', match: :first)
@@ -329,6 +348,12 @@ class EventsTest < ActionDispatch::IntegrationTest
       within(id: 'editProfileButton') do
           click_on(id: 'saveProfileButton')#canno
       end
+  end
+#-------------------------------------everything past here uses selenium--------------------------------------
+  test "signup with selenium" do
+      
+       goto()
+       assert_text('ddkjnjnjnikkb')
   end
 end
 

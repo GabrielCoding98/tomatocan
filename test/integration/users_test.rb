@@ -3,7 +3,7 @@ require 'capybara-screenshot/minitest'
 class UsersTest < ActionDispatch::IntegrationTest
     include Capybara::DSL
     include Capybara::Minitest::Assertions
-    Capybara::Screenshot.autosave_on_failure = true
+    Capybara::Screenshot.autosave_on_failure = false
     setup do
     visit ('http://localhost:3000/')
     def signUpUser()
