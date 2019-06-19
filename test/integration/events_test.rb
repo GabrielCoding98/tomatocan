@@ -1,6 +1,7 @@
 require 'test_helper'
 require 'capybara-screenshot/minitest'
-require 'selenium-webdriver'
+
+require 'capybara'
 #define driver for firefox webdriver
 #Capybara::Selenium::Driver.new( :browser => :chrome, :driver_path => '74.0.3729.6')
 #@driver = Selenium::WebDriver::firefox.driver_path = 'firefdriver'
@@ -14,13 +15,15 @@ class EventsTest < ActionDispatch::IntegrationTest
  include Capybara::DSL
  include Capybara::Minitest::Assertions
  Capybara::Screenshot.autosave_on_failure = false# disable screenshot on failure
- @driver = Selenium::WebDriver.for :firefox
  
   setup do
   
-    visit ('/')#user is at the home page by default
-    # Capybara.server = :webrick
-    #Capybara.default_driver = :selenium_headless
+    visit ('/')
+    click_on('Sign In', match: :first)
+    fill_in(id: 'user_email', with: 'fake@fake.com')
+    fill_in(id: 'user_password', with: 'user1234')
+    click_on(class: 'form-control btn-primary')
+    
   end
 def goto()
     @driver.navigate.to 'http://localhost:3000'
@@ -36,7 +39,7 @@ end
     fill_in(id:'user_permalink', with:'username')
     fill_in(id:'user_password', with: 'password', :match => :prefer_exact)
     fill_in(id:'user_password_confirmation', with:'password')
-    click_on(class: 'form-control btn-primary')#Click Signup
+    click_on(class: 'btn btn-primary')#Click Signup
     assert_text ('Profile Image')#is user sent to their profile info page?
     visit ('/')
   end
@@ -48,7 +51,7 @@ end
     click_on(class: 'form-control btn-primary')
   end
   def createReward()
-    signup()
+    
     click_on('name')
     click_on('Control Panel')
     click_on('Rewards')
@@ -59,12 +62,22 @@ end
     click_on(class: 'btn btn-lg btn-primary')
   end
   def createEvent()
-    signup()
-    click_on('Host A Show')
+    click_on('Host a Livestream Discussion')
     fill_in(id:'event_name', with: 'Intern')
     fill_in(id:'event_desc', with: 'This is a description of the event')
     click_button(class: 'btn btn-lg btn-primary')
-    assert_text('Intern')#does the event show up on the homepage?
+    #assert_text('Intern')does the event show up on the homepage?
+  end
+  test "Event should be created"do
+      createEvent()
+      assert_text('Internzz')
+  end
+  test "sign in should work from the fixtures" do
+      click_on('Sign In', match: :first)
+      fill_in(id: 'user_email', with: 'fake@fake.com')
+      fill_in(id: 'user_password', with: 'user1234')
+      click_on(class: 'form-control btn-primary')
+      assert_text('')
   end
   test "Should login before hosting a discussion" do
     click_on('Host A Show')

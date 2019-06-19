@@ -4,12 +4,12 @@ one:
   name: user1 product
   user_id: 1
   price: 1.5
-  desc: MyText
-  itempic: MyString
-  merchpdf: Test.pdf
+  desc: desc of user1 product
+  itempic: picture of user1 product
+  merchpdf: user1.pdf
   buttontype: Buy
 two:
-  name: MyString
+  name: Donate $1.50!
   user_id: 2
   price: 1.5
   desc: MyText
@@ -49,11 +49,10 @@ six:
   audio: Test.mp3
   buttontype: Donate  
 seven:
-  name: Donate $2.00!
+  name: donateTest!
   user_id: 1
   price: 2
-  desc: MyText
-  itempic: MyString
-  merchpdf: Test.pdf
-  buttontype: Buy
-  
+  desc: Donation
+  itempic: donate.jpg
+  merchpdf: donate.pdf
+  buttontype: Donate
