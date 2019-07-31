@@ -38,8 +38,8 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to "/" }
-        format.json { render json: @event, status: :created, location: @event }
+        format.html { redirect_to '/' }
+        format.json { render json: @event, status: :created, location: @event.location }
       else
         format.html { render action: "new" }
         format.json { render json: @event.errors, status: :unprocessable_entity }
